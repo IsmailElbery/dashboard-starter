@@ -1,0 +1,67 @@
+// DGA (Digital Government Authority) Color System
+// Primary Colors
+$green: #26634B;
+$green-shade: #066058;
+$green-tint: #27AA8C;
+$green-pastel: #ACDDC7;
+$green-dark: #144D3F;
+
+$darkBlue: #160F3E;
+$darkBlue-shade: #1F255B;
+$darkBlue-tint: #444061;
+$darkBlue-pastel: #CDCCD5;
+
+// Secondary Colors
+$tiffany: #0AEBD7;
+$tiffany-shade: #046459;
+$tiffany-tint: #4ECEBB;
+$tiffany-pastel: #A9E2D7;
+
+$blue: #005A96;
+$blue-shade: #0053BA;
+$blue-tint: #0054AE;
+$blue-pastel: #339EEC;
+
+$violet: #5505CD;
+$violet-shade: #3C2B7D;
+$violet-tint: #5830B4;
+$violet-pastel: #AC9FD5;
+
+// Grayscale
+$gray: #323232;
+$gray-shade: #242424;
+$gray-tint: #595959;
+$gray-pastel: #EAEAEA;
+
+// Standard Colors
+$red: #AF0818;
+$orange: #FD7E14;
+$yellow: #FFC107;
+$black: #000000;
+$white: #ffffff;
+$white-shade: #EAEAEA;
+$success-color: #006604;
+
+// Bootstrap Theme Colors (DGA Standards)
+$primary: $green;
+$secondary: $blue;
+$success: $success-color;
+$info: $blue-pastel;
+$warning: $yellow;
+$danger: $red;
+$light: $white-shade;
+$dark: $darkBlue;
+
+// Body
+$body-bg: $white;
+$body-color: $gray;
+
+// Typography - DGA Fonts
+$font-family-sans-serif: 'thesansplain', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$font-family-arabic: 'noto_naskh_arabicregular', Arial, sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+
+// Headings
+$headings-font-family: 'thesansb8_extrabold', $font-family-sans-serif;
+$headings-color: $darkBlue;
