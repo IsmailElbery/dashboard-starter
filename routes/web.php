@@ -26,6 +26,10 @@ Route::resource('items', App\Http\Controllers\ItemController::class)->middleware
 // Public Services Page
 Route::get('/services', [App\Http\Controllers\ServiceController::class, 'publicIndex'])->name('services.public');
 
+// Public Search Page
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search.index');
+Route::post('/api/search/submit', [App\Http\Controllers\SearchController::class, 'submit'])->name('search.submit');
+
 // Admin Services CRUD
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/services', [App\Http\Controllers\ServiceController::class, 'index'])->name('services.index');
@@ -34,6 +38,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/services/{service}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
     Route::get('/services/{service}/edit', [App\Http\Controllers\ServiceController::class, 'edit'])->name('services.edit');
     Route::put('/services/{service}', [App\Http\Controllers\ServiceController::class, 'update'])->name('services.update');
+    Route::post('/services/{service}/toggle-status', [App\Http\Controllers\ServiceController::class, 'toggleStatus'])->name('services.toggle-status');
     Route::delete('/services/{service}', [App\Http\Controllers\ServiceController::class, 'destroy'])->name('services.destroy');
 });
 

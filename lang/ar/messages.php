@@ -34,6 +34,8 @@ return [
     'service_created_successfully' => 'تم إنشاء الخدمة بنجاح.',
     'service_updated_successfully' => 'تم تحديث الخدمة بنجاح.',
     'service_deleted_successfully' => 'تم حذف الخدمة بنجاح.',
+    'service_activated' => 'تم تفعيل الخدمة بنجاح.',
+    'service_deactivated' => 'تم إلغاء تفعيل الخدمة بنجاح.',
     'confirm_delete_service' => 'هل أنت متأكد من حذف هذه الخدمة؟',
     'active_service' => 'نشط (عرض هذه الخدمة على الموقع)',
     'current_photo' => 'الصورة الحالية',

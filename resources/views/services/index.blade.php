@@ -1,6 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Custom Pagination Styling */
+.pagination {
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.pagination .page-item {
+    margin: 0 2px;
+}
+
+.pagination .page-link {
+    color: #006C35;
+    border: 2px solid #D4D4D4;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 40px;
+    text-align: center;
+}
+
+.pagination .page-link:hover {
+    background-color: #006C35;
+    color: white;
+    border-color: #006C35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 108, 53, 0.2);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #006C35;
+    border-color: #006C35;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 108, 53, 0.3);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #F5F5F5;
+    border-color: #D4D4D4;
+    color: #737373;
+    cursor: not-allowed;
+}
+
+.pagination .page-link:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 108, 53, 0.25);
+}
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -35,10 +84,6 @@
                                             <td class="text-center fw-bold text-muted">{{ $service->id }}</td>
                                             <td class="fw-semibold">
                                                 <i class="fas fa-concierge-bell text-primary me-2"></i>{{ $service->title }}
-                                                @if($service->title_ar)
-                                                    <br>
-                                                    <small class="text-muted">{{ $service->title_ar }}</small>
-                                                @endif
                                             </td>
                                             <td>
                                                 <div style="max-width: 300px;">
@@ -49,15 +94,14 @@
                                                 <span class="badge bg-light text-dark border">{{ $service->order }}</span>
                                             </td>
                                             <td class="text-center">
-                                                @if($service->is_active)
-                                                    <span class="badge bg-success">
-                                                        <i class="fas fa-check-circle me-1"></i>Active
-                                                    </span>
-                                                @else
-                                                    <span class="badge bg-danger">
-                                                        <i class="fas fa-times-circle me-1"></i>Inactive
-                                                    </span>
-                                                @endif
+                                                <span class="badge status-badge {{ $service->is_active ? 'bg-success' : 'bg-danger' }}"
+                                                      style="cursor: pointer;"
+                                                      onclick="toggleStatus({{ $service->id }}, this)"
+                                                      data-service-id="{{ $service->id }}"
+                                                      data-is-active="{{ $service->is_active ? '1' : '0' }}">
+                                                    <i class="fas {{ $service->is_active ? 'fa-check-circle' : 'fa-times-circle' }} me-1"></i>
+                                                    <span class="status-text">{{ $service->is_active ? 'Active' : 'Inactive' }}</span>
+                                                </span>
                                             </td>
                                             <td class="text-center">
                                                 @if($service->photo)
@@ -127,8 +171,8 @@
                             </table>
                         </div>
 
-                        <div class="mt-3">
-                            {{ $services->links() }}
+                        <div class="mt-4 d-flex justify-content-center">
+                            {{ $services->links('pagination::bootstrap-5') }}
                         </div>
                     @else
                         <div class="alert alert-info">
@@ -140,4 +184,65 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function toggleStatus(serviceId, element) {
+    const badge = element;
+    const icon = badge.querySelector('i');
+    const statusText = badge.querySelector('.status-text');
+    const currentStatus = badge.dataset.isActive === '1';
+
+    // Disable clicking temporarily
+    badge.style.pointerEvents = 'none';
+    badge.style.opacity = '0.6';
+
+    // Make AJAX request
+    fetch(`/admin/services/${serviceId}/toggle-status`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update badge appearance
+            badge.dataset.isActive = data.is_active ? '1' : '0';
+
+            if (data.is_active) {
+                badge.classList.remove('bg-danger');
+                badge.classList.add('bg-success');
+                icon.classList.remove('fa-times-circle');
+                icon.classList.add('fa-check-circle');
+                statusText.textContent = 'Active';
+            } else {
+                badge.classList.remove('bg-success');
+                badge.classList.add('bg-danger');
+                icon.classList.remove('fa-check-circle');
+                icon.classList.add('fa-times-circle');
+                statusText.textContent = 'Inactive';
+            }
+
+            // Show success message
+            if (typeof showSuccessAlert === 'function') {
+                showSuccessAlert(data.message);
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        if (typeof showErrorAlert === 'function') {
+            showErrorAlert('{{ __("messages.error") }}');
+        }
+    })
+    .finally(() => {
+        // Re-enable clicking
+        badge.style.pointerEvents = 'auto';
+        badge.style.opacity = '1';
+    });
+}
+</script>
+@endpush
 @endsection

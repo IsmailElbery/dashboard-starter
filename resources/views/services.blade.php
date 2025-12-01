@@ -436,19 +436,19 @@
         <!-- Cards Grid -->
         <div class="cards-grid" id="cardsGrid">
             @forelse($services as $service)
-            <article class="card service-card" data-title="{{ strtolower($service->localized_title) }}" data-description="{{ strtolower($service->localized_description) }}">
+            <article class="card service-card" data-title="{{ strtolower($service->title) }}" data-description="{{ strtolower($service->description) }}">
                 <div class="card-image">
                     @if($service->photo)
-                        <img src="{{ asset('storage/' . $service->photo) }}" alt="{{ $service->localized_title }}">
+                        <img src="{{ asset('storage/' . $service->photo) }}" alt="{{ $service->title }}">
                     @else
                         <span aria-hidden="true">🔧</span>
                     @endif
                     <span class="card-badge">{{ __('messages.order') }}: {{ $service->order }}</span>
                 </div>
                 <div class="card-content">
-                    <h2 class="card-title">{{ $service->localized_title }}</h2>
+                    <h2 class="card-title">{{ $service->title }}</h2>
                     <p class="card-description">
-                        {{ Str::limit($service->localized_description, 150) }}
+                        {{ Str::limit($service->description, 150) }}
                     </p>
                 </div>
             </article>

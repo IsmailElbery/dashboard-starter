@@ -11,9 +11,7 @@ class Service extends Model
 
     protected $fillable = [
         'title',
-        'title_ar',
         'description',
-        'description_ar',
         'photo',
         'order',
         'is_active',
@@ -25,23 +23,17 @@ class Service extends Model
     ];
 
     /**
-     * Get the localized title
+     * Boot method to auto-set order
      */
-    public function getLocalizedTitleAttribute()
+    protected static function boot()
     {
-        return app()->getLocale() === 'ar' && $this->title_ar
-            ? $this->title_ar
-            : $this->title;
-    }
+        parent::boot();
 
-    /**
-     * Get the localized description
-     */
-    public function getLocalizedDescriptionAttribute()
-    {
-        return app()->getLocale() === 'ar' && $this->description_ar
-            ? $this->description_ar
-            : $this->description;
+        static::creating(function ($service) {
+            if (is_null($service->order)) {
+                $service->order = (static::max('order') ?? 0) + 1;
+            }
+        });
     }
 
     /**
@@ -58,5 +50,15 @@ class Service extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('order', 'asc');
+    }
+
+    /**
+     * Toggle active status
+     */
+    public function toggleStatus()
+    {
+        $this->is_active = !$this->is_active;
+        $this->save();
+        return $this;
     }
 }

@@ -1,6 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Custom Pagination Styling */
+.pagination {
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.pagination .page-item {
+    margin: 0 2px;
+}
+
+.pagination .page-link {
+    color: #006C35;
+    border: 2px solid #D4D4D4;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 40px;
+    text-align: center;
+}
+
+.pagination .page-link:hover {
+    background-color: #006C35;
+    color: white;
+    border-color: #006C35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 108, 53, 0.2);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #006C35;
+    border-color: #006C35;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 108, 53, 0.3);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #F5F5F5;
+    border-color: #D4D4D4;
+    color: #737373;
+    cursor: not-allowed;
+}
+
+.pagination .page-link:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 108, 53, 0.25);
+}
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -108,7 +157,7 @@
                         </div>
 
                         <div class="mt-3">
-                            {{ $items->links() }}
+                            {{ $items->links('pagination::bootstrap-5') }}
                         </div>
                     @else
                         <div class="alert alert-info">

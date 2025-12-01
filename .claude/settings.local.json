@@ -5,7 +5,8 @@
       "WebSearch",
       "Bash(php artisan make:seeder ItemSeeder)",
       "Bash(php artisan make:middleware SetLocale)",
-      "Bash(php artisan make:model Service -m)"
+      "Bash(php artisan make:model Service -m)",
+      "Bash(php artisan db:seed --class=ServiceSeeder)"
     ],
     "deny": [],
     "ask": []

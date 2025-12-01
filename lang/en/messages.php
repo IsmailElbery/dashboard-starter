@@ -34,6 +34,8 @@ return [
     'service_created_successfully' => 'Service created successfully.',
     'service_updated_successfully' => 'Service updated successfully.',
     'service_deleted_successfully' => 'Service deleted successfully.',
+    'service_activated' => 'Service activated successfully.',
+    'service_deactivated' => 'Service deactivated successfully.',
     'confirm_delete_service' => 'Are you sure you want to delete this service?',
     'active_service' => 'Active (Display this service on the website)',
     'current_photo' => 'Current photo',

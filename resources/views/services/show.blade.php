@@ -24,21 +24,14 @@
                         <div class="col-md-8">
                             <!-- Title -->
                             <div class="mb-4">
-                                <h5 class="text-muted mb-2">Title</h5>
+                                <h5 class="text-muted mb-2">{{ __('messages.title') }}</h5>
                                 <h3 class="fw-bold">{{ $service->title }}</h3>
-                                @if($service->title_ar)
-                                    <h4 class="text-muted" dir="rtl">{{ $service->title_ar }}</h4>
-                                @endif
                             </div>
 
                             <!-- Description -->
                             <div class="mb-4">
-                                <h5 class="text-muted mb-2">Description</h5>
+                                <h5 class="text-muted mb-2">{{ __('messages.description') }}</h5>
                                 <p class="lead">{{ $service->description }}</p>
-                                @if($service->description_ar)
-                                    <hr>
-                                    <p class="lead" dir="rtl">{{ $service->description_ar }}</p>
-                                @endif
                             </div>
 
                             <div class="row">

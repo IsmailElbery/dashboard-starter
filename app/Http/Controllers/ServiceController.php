@@ -41,11 +41,8 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'title_ar' => 'nullable|string|max:255',
             'description' => 'required|string',
-            'description_ar' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'order' => 'required|integer|min:0',
         ]);
 
         // Handle photo upload
@@ -55,6 +52,8 @@ class ServiceController extends Controller
 
         // Handle checkbox
         $validated['is_active'] = $request->has('is_active');
+
+        // Order will be auto-set by model boot method
 
         Service::create($validated);
 
@@ -85,9 +84,7 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'title_ar' => 'nullable|string|max:255',
             'description' => 'required|string',
-            'description_ar' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'order' => 'required|integer|min:0',
         ]);
@@ -108,6 +105,22 @@ class ServiceController extends Controller
 
         return redirect()->route('services.index')
             ->with('success', __('messages.service_updated_successfully'));
+    }
+
+    /**
+     * Toggle service active status.
+     */
+    public function toggleStatus(Service $service)
+    {
+        $service->toggleStatus();
+
+        return response()->json([
+            'success' => true,
+            'is_active' => $service->is_active,
+            'message' => $service->is_active
+                ? __('messages.service_activated')
+                : __('messages.service_deactivated')
+        ]);
     }
 
     /**
