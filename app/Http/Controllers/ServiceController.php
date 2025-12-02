@@ -42,7 +42,7 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         // Handle photo upload

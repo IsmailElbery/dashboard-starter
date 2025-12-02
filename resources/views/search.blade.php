@@ -62,7 +62,7 @@
 
         /* Header */
         .header {
-            background: var(--white);
+            background: var(--primary-green-dark);
             border-bottom: 3px solid var(--primary-green);
             padding: var(--spacing-md) var(--spacing-lg);
             box-shadow: var(--shadow-sm);
@@ -390,6 +390,7 @@
             padding: var(--spacing-lg);
             margin-top: auto;
             text-align: center;
+            height: 10px;
         }
 
         .footer-content {
@@ -400,7 +401,7 @@
         .footer p {
             color: var(--neutral-300);
             font-size: 15px;
-            margin: 4px 0;
+            /* margin: 4px 0; */
         }
 
         /* Responsive Design */
@@ -429,11 +430,13 @@
     <header class="header" role="banner">
         <div class="header-content">
             <a href="{{ route('home') }}" class="logo-section" aria-label="{{ __('messages.home') }}">
-                <div class="logo" aria-hidden="true">🇸🇦</div>
+                <!-- <div class="logo" aria-hidden="true">🇸🇦</div>
                 <div class="org-info">
                     <div class="org-name">{{ app()->getLocale() === 'ar' ? 'الجهة الحكومية' : 'Government Entity' }}</div>
                     <div class="org-name-en">{{ app()->getLocale() === 'ar' ? 'Government Entity' : 'الجهة الحكومية' }}</div>
-                </div>
+                </div> -->
+                
+                <img src="https://www.gadd.gov.sa/frontend/imgs/logo.svg" alt="الشعار" class="header-image">
             </a>
         </div>
     </header>
